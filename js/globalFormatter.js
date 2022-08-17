@@ -79,3 +79,42 @@ function formatarPercentualInteiro(componente) {
     console.log(componente.value.replace(",", "."))
 }
 
+function formatarPercentualDecimal(componente) {
+    value = componente.value;
+
+    value = value + ''
+    value = parseInt(value.replace(/[\D]+/g, ''))
+    value = value + ''
+    value = value.replace(/([0-9]{4})$/g, ',$1')
+
+    if (value.length == 1) {
+        value = "0,000" + value;
+    }
+
+    if (value.length >= 2 && value.length < 3) {
+        value = "0,00" + value;
+    }
+
+    if (value.length >= 3 && value.length <= 4) {
+        value = "0,0" + value
+    }
+
+    if (value.length > 4 && value.length <= 5) {
+        value = "0" + value;
+    }
+
+
+    if (value == "0,0000" && event.keyCode == 8) {
+        value = ""
+    }
+
+    componente.value = value == "0,0NaN" || value == "NaN" ? "" : value;
+    console.log(componente.value.replace(",", "."))
+}
+
+window.onload = function () {
+    let inputs = document.getElementsByTagName('input')
+    for (i = 0; i < inputs.length; i++) {
+        inputs[i].autocomplete = "off";
+    }
+}

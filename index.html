@@ -9,63 +9,134 @@
   </head>
   <body>
     <main>
-      <table>
-        <tr>
-          <th>Firstname</th>
-          <td>Jill</td>
-          <td>Eve</td>
-        </tr>
-        <tr>
-          <th>Lastname</th>
-          <td>Smith</td>
-          <td>Jackson</td>
-        </tr>
-        <tr>
-          <th>Age</th>
-          <td>94</td>
-          <td>50</td>
-        </tr>
+      <table class="main-table" cellspacing="0">
+        <thead>
+          <tr>
+            <th class="titulo">Parâmetro</th>
+            <th>Descrição</th>
+            <th>Formatação</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Parâmetro Monetário/Double</td>
+            <td>Valores do tipo R$ ou com ponto flutuante</td>
+            <td>
+              <input
+                type="text"
+                name="doubleValue"
+                onkeyup="formatarDouble(this, event)"
+                maxlength="14"
+                placeholder="Digitar apenas números"
+                title="Valores monetários"
+                onpaste="return false"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td>Parâmetro Inteiro</td>
+            <td>Valores do tipo inteiro aceitando números negativos</td>
+            <td>
+              <input
+                type="text"
+                name="integerValue"
+                onkeyup="formatarInteiro(this)"
+                maxlength="4"
+                placeholder="Digitar apenas números"
+                title="Valores inteiros"
+                onpaste="return false"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td>Parâmetro Percentual</td>
+            <td>Valores do tipo percentual com casa decimal</td>
+            <td>
+              <input
+                type="text"
+                name="doubleValue"
+                onkeyup="formatarPercentualDecimal(this, event)"
+                maxlength="8"
+                title="Valores Percentuais"
+                placeholder="Digitar apenas números"
+                onpaste="return false"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td>Parâmetro Percentual Inteiro</td>
+            <td>Valores do tipo percentual inteiro</td>
+            <td>
+              <input
+                type="text"
+                name="percentualIntegerValue"
+                onkeyup="formatarPercentualInteiro(this)"
+                maxlength="3"
+                placeholder="Digitar apenas números"
+                title="Valores percentual inteiro"
+                onpaste="return false"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td>Parâmetro String</td>
+            <td>Valores do tipo String, cadeias de caracteres</td>
+            <td>
+              <input
+                type="text"
+                name="percentualIntegerValue"
+                maxlength="30"
+                placeholder="Digitar texto"
+                title="Cadeia de caracteres"
+                onpaste="return false"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td>Parâmetro Data</td>
+            <td>Valores do tipo Data, padrão DD/MM/YYYY</td>
+            <td>
+              <input
+                type="date"
+                name="dateValue"
+                onkeyup="formatarData(this, event)"
+                onchange="mostrar(this)"
+                maxlength="10"
+                title="Tipo Data DD/MM/YYYY"
+                onpaste="return false"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td>Parâmetro Hora</td>
+            <td>Valores do tipo hora, padrão HH:MM:SS</td>
+            <td>
+              <input
+                type="time"
+                name="hourValue"
+                onchange="mostrarHora(this)"
+                maxlength="10"
+                title="Tipo hora HH:MM"
+                onpaste="return false"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td>Parâmetro Charset</td>
+            <td>Valores do tipo Charset, aceitam um único caractere</td>
+            <td>
+              <input
+                type="text"
+                name="hourValue"
+                maxlength="1"
+                title="Tipo caractere único"
+                placeholder="Digitar qualquer caractere"
+                onpaste="return false"
+              />
+            </td>
+          </tr>
+        </tbody>
       </table>
-      <form>
-        <div class="doubleValue-container">
-          <label for="doubleValue">Valor tipo Double ou Monetário</label>
-          <input
-            type="text"
-            name="doubleValue"
-            onkeyup="formatarDouble(this, event)"
-            maxlength="14"
-            title="Valores monetários"
-          />
-        </div>
-        <div class="integerValue-container">
-          <label for="integerValue"
-            >Valor tipo Inteiro Aceitando Negativo</label
-          >
-          <input
-            type="text"
-            name="integerValue"
-            onkeyup="formatarInteiro(this)"
-            maxlength="4"
-            title="Valores inteiros"
-          />
-        </div>
-        <div class="percentualIntegerValue-container">
-          <label for="percentualIntegerValue"
-            >Valor percentual Inteiro</label
-          >
-          <input
-            type="text"
-            name="percentualIntegerValue"
-            onkeyup="formatarPercentualInteiro(this)"
-            maxlength="3"
-            title="Valores percentual inteiro"
-          />
-        </div>
-        <div class="percentualValue-container"></div>
-        <div class="percentualFourDecimalvalue-container"></div>
-        <div class="stringValue-container"></div>
-        <div class="charsetValue-container"></div>
-      </form>
     </main>
     <script src="./js/globalFormatter.js"></script>
   </body>
