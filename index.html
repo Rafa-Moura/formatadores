@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/styles.css" />
+    <title>Teste Pagamento</title>
+  </head>
+  <body>
+    <main>
+      <table>
+        <tr>
+          <th>Firstname</th>
+          <td>Jill</td>
+          <td>Eve</td>
+        </tr>
+        <tr>
+          <th>Lastname</th>
+          <td>Smith</td>
+          <td>Jackson</td>
+        </tr>
+        <tr>
+          <th>Age</th>
+          <td>94</td>
+          <td>50</td>
+        </tr>
+      </table>
+      <form>
+        <div class="doubleValue-container">
+          <label for="doubleValue">Valor tipo Double ou Monetário</label>
+          <input
+            type="text"
+            name="doubleValue"
+            onkeyup="formatarDouble(this, event)"
+            maxlength="14"
+            title="Valores monetários"
+          />
+        </div>
+        <div class="integerValue-container">
+          <label for="integerValue"
+            >Valor tipo Inteiro Aceitando Negativo</label
+          >
+          <input
+            type="text"
+            name="integerValue"
+            onkeyup="formatarInteiro(this)"
+            maxlength="4"
+            title="Valores inteiros"
+          />
+        </div>
+        <div class="percentualIntegerValue-container">
+          <label for="percentualIntegerValue"
+            >Valor percentual Inteiro</label
+          >
+          <input
+            type="text"
+            name="percentualIntegerValue"
+            onkeyup="formatarPercentualInteiro(this)"
+            maxlength="3"
+            title="Valores percentual inteiro"
+          />
+        </div>
+        <div class="percentualValue-container"></div>
+        <div class="percentualFourDecimalvalue-container"></div>
+        <div class="stringValue-container"></div>
+        <div class="charsetValue-container"></div>
+      </form>
+    </main>
+    <script src="./js/globalFormatter.js"></script>
+  </body>
+</html>
