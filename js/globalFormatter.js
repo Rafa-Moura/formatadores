@@ -79,7 +79,7 @@ function formatarPercentualInteiro(componente) {
     console.log(componente.value.replace(",", "."))
 }
 
-function formatarPercentualDecimal(componente) {
+function formatarPercentualDecimal(componente, event) {
     value = componente.value;
 
     value = value + ''
@@ -88,7 +88,7 @@ function formatarPercentualDecimal(componente) {
     value = value.replace(/([0-9]{4})$/g, ',$1')
 
     if (value.length == 1) {
-        value = "0,000" + value;
+        value = "0,000" + value
     }
 
     if (value.length >= 2 && value.length < 3) {
@@ -103,6 +103,14 @@ function formatarPercentualDecimal(componente) {
         value = "0" + value;
     }
 
+    if (value.length >= 6 && value.length <= 8) {
+        value = value + '%'
+    }
+
+    var simbolo = value.length - 1;
+    if (simbolo == "%" || event.keyCode == 8) {
+        value = value.replace("%", '')
+    }
 
     if (value == "0,0000" && event.keyCode == 8) {
         value = ""
@@ -110,6 +118,20 @@ function formatarPercentualDecimal(componente) {
 
     componente.value = value == "0,0NaN" || value == "NaN" ? "" : value;
     console.log(componente.value.replace(",", "."))
+}
+
+function removeEspacos(componente) {
+    value = componente.value
+    componente.value = value.trim();
+}
+
+function validaString(componente) {
+    value = componente.value
+    let total = value.length - 1;
+    if (value[0] == ' ') {
+        value = value.trim()
+    }
+    componente.value = value;
 }
 
 window.onload = function () {

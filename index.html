@@ -56,7 +56,7 @@
                 type="text"
                 name="doubleValue"
                 onkeyup="formatarPercentualDecimal(this, event)"
-                maxlength="8"
+                maxlength="9"
                 title="Valores Percentuais"
                 placeholder="Digitar apenas números"
                 onpaste="return false"
@@ -70,8 +70,8 @@
               <input
                 type="text"
                 name="percentualIntegerValue"
-                onkeyup="formatarPercentualInteiro(this)"
-                maxlength="3"
+                onkeyup="formatarPercentualInteiro(this, event)"
+                maxlength="4"
                 placeholder="Digitar apenas números"
                 title="Valores percentual inteiro"
                 onpaste="return false"
@@ -84,8 +84,10 @@
             <td>
               <input
                 type="text"
-                name="percentualIntegerValue"
+                name="stringValue"
                 maxlength="30"
+                onblur="removeEspacos(this)"
+                onkeyup="validaString(this)"
                 placeholder="Digitar texto"
                 title="Cadeia de caracteres"
                 onpaste="return false"
@@ -130,6 +132,8 @@
                 name="hourValue"
                 maxlength="1"
                 title="Tipo caractere único"
+                onblur="removeEspacos(this)"
+                onkeyup="validaString(this)"
                 placeholder="Digitar qualquer caractere"
                 onpaste="return false"
               />
