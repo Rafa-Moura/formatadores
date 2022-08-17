@@ -47,3 +47,10 @@ th {
 .main-table th {
   text-align: left;
 }
+
+input {
+  border: 0;
+  outline: none;
+  padding: 4px 10px;
+  border-radius: 5px;
+}
