@@ -75,7 +75,17 @@ function formatarPercentualInteiro(componente) {
     value = value + ''
     value = value.replace(/([0-9])$/g, '$1')
 
-    componente.value = value == "0NaN" || value == "NaN" ? "" : value;
+
+    if (value.length >= 1 && value.length < 5) {
+        value = value + '%'
+    }
+
+    var simbolo = value.length - 1;
+    if (simbolo == "%" || event.keyCode == 8) {
+        value = value.replace("%", '')
+    }
+
+    componente.value = value == "0NaN" || value == "NaN" || value == "NaN%" ? "" : value;
     console.log(componente.value.replace(",", "."))
 }
 
@@ -116,7 +126,7 @@ function formatarPercentualDecimal(componente, event) {
         value = ""
     }
 
-    componente.value = value == "0,0NaN" || value == "NaN" ? "" : value;
+    componente.value = value == "0,0NaN" || value == "0,0NaN%" || value == "NaN" ? "" : value;
     console.log(componente.value.replace(",", "."))
 }
 
