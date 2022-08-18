@@ -15,10 +15,11 @@
             <th class="titulo">Parâmetro</th>
             <th>Descrição</th>
             <th>Formatação</th>
+            <th>Formato Banco</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
+          <tr class="linhas-tabela">
             <td>Parâmetro Monetário/Double</td>
             <td>Valores do tipo R$ ou com ponto flutuante</td>
             <td>
@@ -32,8 +33,17 @@
                 onpaste="return false"
               />
             </td>
+            <td>
+              <input
+                type="text"
+                name="doubleValueBanco"
+                readonly
+                disabled
+                id="formatoDoubleBanco"
+              />
+            </td>
           </tr>
-          <tr>
+          <tr class="linhas-tabela">
             <td>Parâmetro Inteiro</td>
             <td>Valores do tipo inteiro aceitando números negativos</td>
             <td>
@@ -41,20 +51,30 @@
                 type="text"
                 name="integerValue"
                 onkeyup="formatarInteiro(this)"
-                maxlength="4"
+                onblur="limpaCampoInteiro(this)"
+                maxlength="15"
                 placeholder="Digitar apenas números"
                 title="Valores inteiros"
                 onpaste="return false"
               />
             </td>
+            <td>
+              <input
+                type="text"
+                name="integerValueBanco"
+                readonly
+                disabled
+                id="formatoIntegerBanco"
+              />
+            </td>
           </tr>
-          <tr>
+          <tr class="linhas-tabela">
             <td>Parâmetro Percentual</td>
             <td>Valores do tipo percentual com casa decimal</td>
             <td>
               <input
                 type="text"
-                name="doubleValue"
+                name="doublePercentValue"
                 onkeyup="formatarPercentualDecimal(this, event)"
                 maxlength="9"
                 title="Valores Percentuais"
@@ -62,8 +82,17 @@
                 onpaste="return false"
               />
             </td>
+            <td>
+              <input
+                type="text"
+                name="doublePercentValueBanco"
+                readonly
+                disabled
+                id="formatoDoublePercentBanco"
+              />
+            </td>
           </tr>
-          <tr>
+          <tr class="linhas-tabela">
             <td>Parâmetro Percentual Inteiro</td>
             <td>Valores do tipo percentual inteiro</td>
             <td>
@@ -77,8 +106,17 @@
                 onpaste="return false"
               />
             </td>
+            <td>
+              <input
+                type="text"
+                name="percentualIntegerValueBanco"
+                readonly
+                disabled
+                id="formatoPercentualIntegerBanco"
+              />
+            </td>
           </tr>
-          <tr>
+          <tr class="linhas-tabela">
             <td>Parâmetro String</td>
             <td>Valores do tipo String, cadeias de caracteres</td>
             <td>
@@ -93,49 +131,84 @@
                 onpaste="return false"
               />
             </td>
+            <td>
+              <input
+                type="text"
+                name="stringValueBanco"
+                readonly
+                disabled
+                id="formatoStringBanco"
+              />
+            </td>
           </tr>
-          <tr>
+          <tr class="linhas-tabela">
             <td>Parâmetro Data</td>
             <td>Valores do tipo Data, padrão DD/MM/YYYY</td>
             <td>
               <input
-                type="date"
+                type="text"
                 name="dateValue"
-                onkeyup="formatarData(this, event)"
-                onchange="mostrar(this)"
+                id="js-date"
                 maxlength="10"
                 title="Tipo Data DD/MM/YYYY"
                 onpaste="return false"
               />
             </td>
+            <td>
+              <input
+                type="text"
+                name="dateValueBanco"
+                readonly
+                disabled
+                id="formatoDateBanco"
+              />
+            </td>
           </tr>
-          <tr>
+          <tr class="linhas-tabela">
             <td>Parâmetro Hora</td>
             <td>Valores do tipo hora, padrão HH:MM:SS</td>
             <td>
               <input
                 type="time"
-                name="hourValue"
+                name="timeValue"
                 onchange="mostrarHora(this)"
                 maxlength="10"
                 title="Tipo hora HH:MM"
                 onpaste="return false"
               />
             </td>
+            <td>
+              <input
+                type="text"
+                name="timeValueBanco"
+                readonly
+                disabled
+                id="formatoTimeBanco"
+              />
+            </td>
           </tr>
-          <tr>
+          <tr class="linhas-tabela">
             <td>Parâmetro Charset</td>
             <td>Valores do tipo Charset, aceitam um único caractere</td>
             <td>
               <input
                 type="text"
-                name="hourValue"
+                name="charValue"
                 maxlength="1"
                 title="Tipo caractere único"
                 onblur="removeEspacos(this)"
-                onkeyup="validaString(this)"
+                onkeyup="validaChar(this)"
                 placeholder="Digitar qualquer caractere"
                 onpaste="return false"
+              />
+            </td>
+            <td>
+              <input
+                type="text"
+                name="charValueBanco"
+                readonly
+                disabled
+                id="formatoCharBanco"
               />
             </td>
           </tr>

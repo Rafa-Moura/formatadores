@@ -1,3 +1,5 @@
+var input = document.getElementById('js-date');
+
 function formatarDouble(componente, event) {
 
     value = componente.value;
@@ -22,7 +24,13 @@ function formatarDouble(componente, event) {
     value = denifinirMilhares(value);
     componente.value = value == "0NaN" || value == "NaN" ? "" : value;
 
-    console.log(componente.value.replace(",", "."))
+    let double = document.getElementById('formatoDoubleBanco');
+    double.value = converteNumero(componente.value)
+}
+
+const converteNumero = (valor) => {
+    return valor.replace(/[^\d,]+/g, '')
+        .replace(',', '.');
 }
 
 function denifinirMilhares(moeda) {
@@ -44,15 +52,15 @@ function denifinirMilhares(moeda) {
 function formatarInteiro(componente) {
     value = componente.value
 
-    if (value[0] == "-") {
-        componente.maxLength = 4;
-    } else {
-        componente.maxLength = 3;
-    }
-
     if (value[0] == "-" && value[1] == "0") {
         alert("0 não pode ser número negativo")
         value = "";
+    }
+
+    if (value[0] == "0" && value[1] == "0") {
+        value = "0"
+    } else if (value[0] == "0" && value[1] > "0") {
+        value = value.replace("0", "");
     }
 
     if (value.length == 1) {
@@ -64,7 +72,17 @@ function formatarInteiro(componente) {
         value = value.replace(/\B[^0-9]{1,}\B/g, "");// non-word-boundary para selecionar posições dentro de uma palavra. (caso o usuário mova o cursor e tente inserir alguma letra entre os números)            
         value = value.replace(/\b[^0-9]{1,}\b/g, "");//word boundary para selecionar a posição antes ou depois de uma palavra. (caso o usuário mova o cursor e tente inserir algum caractere entre os números)            
     }
+    let integer = document.getElementById('formatoIntegerBanco');
+    integer.value = componente.value
     componente.value = value;
+}
+
+function limpaCampoInteiro(componente) {
+    value = componente.value
+    if (value.length == 1 && value == '-') {
+        value = '';
+    }
+    componente.value = value
 }
 
 function formatarPercentualInteiro(componente) {
@@ -86,7 +104,8 @@ function formatarPercentualInteiro(componente) {
     }
 
     componente.value = value == "0NaN" || value == "NaN" || value == "NaN%" ? "" : value;
-    console.log(componente.value.replace(",", "."))
+    let integerPercent = document.getElementById('formatoPercentualIntegerBanco')
+    integerPercent.value = converteNumero(componente.value)
 }
 
 function formatarPercentualDecimal(componente, event) {
@@ -127,7 +146,8 @@ function formatarPercentualDecimal(componente, event) {
     }
 
     componente.value = value == "0,0NaN" || value == "0,0NaN%" || value == "NaN" ? "" : value;
-    console.log(componente.value.replace(",", "."))
+    let doublePercent = document.getElementById('formatoDoublePercentBanco')
+    doublePercent.value = converteNumero(componente.value)
 }
 
 function removeEspacos(componente) {
@@ -142,11 +162,80 @@ function validaString(componente) {
         value = value.trim()
     }
     componente.value = value;
+    let stringValue = document.getElementById('formatoStringBanco')
+    stringValue.value = componente.value
+    let charValue = document.getElementById('formatoCharBanco')
+    charValue.value = componente.value
 }
+
+function validaChar(componente) {
+    value = componente.value
+    let total = value.length - 1;
+    if (value[0] == ' ') {
+        value = value.trim()
+    }
+    componente.value = value;
+    let charValue = document.getElementById('formatoCharBanco')
+    charValue.value = componente.value
+}
+
+var dateInputMask = function dateInputMask(elm) {
+    elm.addEventListener('keypress', function (e) {
+        if (e.keyCode < 47 || e.keyCode > 57) {
+            e.preventDefault();
+        }
+
+        var len = elm.value.length;
+
+        if (len !== 1 || len !== 3) {
+            if (e.keyCode == 47) {
+                e.preventDefault();
+            }
+        }
+
+        if (len == 2) {
+            elm.value += '/'
+        }
+        if (len == 5) {
+            elm.value += '/'
+        }
+        checaValoresData(elm);
+        let dateValue = document.getElementById('formatoDateBanco')
+        dateValue.value = elm.value
+    })
+}
+
+var checaValoresData = function (elem) {
+    const dia = elem.value.substring(0, 2)
+    const mes = elem.value.substring(3, 5)
+
+    if (+dia > 31) {
+        elem.value = '12' + elem.value.substring(2)
+    } else if (dia == '00') {
+        elem.value = '01' + elem.value.substring(2);
+    }
+
+    if (+mes > 12) {
+        elem.value = elem.value.substring(0, 3) + '12' + elem.value.substring(5);
+    } else if (mes == '00') {
+        elem.value = elem.value.substring(0, 3) + '01' + elem.value.substring(5);
+    }
+}
+
+function mostrarHora(componente) {
+    value = componente.value;
+    let timeValue = document.getElementById("formatoTimeBanco")
+    timeValue.value = componente.value;
+}
+
+dateInputMask(input);
 
 window.onload = function () {
     let inputs = document.getElementsByTagName('input')
     for (i = 0; i < inputs.length; i++) {
         inputs[i].autocomplete = "off";
+        if (inputs[i].disabled) {
+            inputs[i].style.color = "#FFF"
+        }
     }
 }

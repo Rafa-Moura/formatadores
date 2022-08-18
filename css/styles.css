@@ -35,7 +35,7 @@ main {
   height: 30px;
 }
 
-.main-table td{
+.main-table td {
   padding: 0 10px;
 }
 
@@ -46,6 +46,15 @@ th {
 
 .main-table th {
   text-align: left;
+}
+
+.linhas-tabela {
+  transition: all ease-in-out 0.25s;
+}
+
+.linhas-tabela:hover {
+  background-color: rgb(114, 114, 114);
+  color: #f7f7f7;
 }
 
 input {
