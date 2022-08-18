@@ -164,8 +164,6 @@ function validaString(componente) {
     componente.value = value;
     let stringValue = document.getElementById('formatoStringBanco')
     stringValue.value = componente.value
-    let charValue = document.getElementById('formatoCharBanco')
-    charValue.value = componente.value
 }
 
 function validaChar(componente) {
