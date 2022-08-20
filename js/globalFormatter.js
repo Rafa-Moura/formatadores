@@ -1,4 +1,5 @@
-var input = document.getElementById('js-date');
+var inputDate = document.getElementById('js-date');
+var inputTime = document.getElementById('js-time');
 
 function formatarDouble(componente, event) {
 
@@ -178,7 +179,7 @@ function validaChar(componente) {
 }
 
 var dateInputMask = function dateInputMask(elm) {
-    elm.addEventListener('keypress', function (e) {
+    elm.addEventListener('keyup', function (e) {
         if (e.keyCode < 47 || e.keyCode > 57) {
             e.preventDefault();
         }
@@ -191,19 +192,20 @@ var dateInputMask = function dateInputMask(elm) {
             }
         }
 
-        if (len == 2) {
+        if (len == 2 && e.keyCode != 8 && e.keyCode != 46) {
             elm.value += '/'
         }
-        if (len == 5) {
+        if (len == 5 && e.keyCode != 8 && e.keyCode != 46) {
             elm.value += '/'
         }
+
         checaValoresData(elm);
         let dateValue = document.getElementById('formatoDateBanco')
         dateValue.value = elm.value
     })
 }
 
-var checaValoresData = function (elem) {
+let checaValoresData = function (elem) {
     const dia = elem.value.substring(0, 2)
     const mes = elem.value.substring(3, 5)
 
@@ -220,14 +222,56 @@ var checaValoresData = function (elem) {
     }
 }
 
-function mostrarHora(componente) {
-    value = componente.value;
-    let timeValue = document.getElementById("formatoTimeBanco")
-    timeValue.value = componente.value;
+
+
+let hourInputMask = function hourInputMask(elm) {
+    elm.addEventListener('keyup', function (e) {
+        if (e.keyCode < 47 || e.keyCode > 57) {
+            e.preventDefault();
+        }
+
+        var len = elm.value.length;
+
+        if (len !== 1 || len !== 3) {
+            if (e.keyCode == 47) {
+                e.preventDefault();
+            }
+        }
+
+        if (len == 2 && e.keyCode != 8 && e.keyCode != 46) {
+            elm.value.replace(/[\D]+/g, '') += ':'
+        }
+
+        checaValoresHora(elm);
+        let timeValue = document.getElementById("formatoTimeBanco")
+        timeValue.value = elm.value;
+    })
 }
 
-dateInputMask(input);
+var checaValoresHora = function (elem) {
+    const hora = elem.value.substring(0, 2);
+    const minuto = elem.value.substring(3, 4);
 
+    if (+hora > 23) {
+        elem.value = '23' + elem.value.substring(2);
+    }
+    if (+minuto > 59) {
+        elem.value = elem.value.substring(0, 3) + '59';
+    }
+}
+
+function validaHora(componente) {
+    const regexHora = /^(2[0-3]|[0-1]?[\d]):[0-5][\d]$/
+    const result = regexHora.test(componente.value)
+    if (!result && componente.value.length > 0) {
+        componente.value = ''
+        alert('favor verificar o horário informado')
+        componente.focus();
+    }
+}
+
+dateInputMask(inputDate);
+hourInputMask(inputTime)
 window.onload = function () {
     let inputs = document.getElementsByTagName('input')
     for (i = 0; i < inputs.length; i++) {

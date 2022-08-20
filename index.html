@@ -169,10 +169,11 @@
             <td>Valores do tipo hora, padrão HH:MM:SS</td>
             <td>
               <input
-                type="time"
+                type="text"
                 name="timeValue"
-                onchange="mostrarHora(this)"
-                maxlength="10"
+                maxlength="5"
+                id="js-time"
+                onblur="validaHora(this)"
                 title="Tipo hora HH:MM"
                 onpaste="return false"
               />
