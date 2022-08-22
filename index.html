@@ -150,6 +150,7 @@
                 name="dateValue"
                 id="js-date"
                 maxlength="10"
+                onkeyup="formatarData(this)"
                 title="Tipo Data DD/MM/YYYY"
                 onpaste="return false"
               />
@@ -172,6 +173,7 @@
                 type="text"
                 name="timeValue"
                 maxlength="5"
+                onkeyup="formatarHora(this)"
                 id="js-time"
                 onblur="validaHora(this)"
                 title="Tipo hora HH:MM"

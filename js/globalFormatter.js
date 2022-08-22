@@ -1,6 +1,3 @@
-var inputDate = document.getElementById('js-date');
-var inputTime = document.getElementById('js-time');
-
 function formatarDouble(componente, event) {
 
     value = componente.value;
@@ -178,100 +175,63 @@ function validaChar(componente) {
     charValue.value = componente.value
 }
 
-var dateInputMask = function dateInputMask(elm) {
-    elm.addEventListener('keyup', function (e) {
-        if (e.keyCode < 47 || e.keyCode > 57) {
-            e.preventDefault();
-        }
+function formatarData(data) {
+    valor = data.value
+    valor = valor.replace(/\D/g, "");
+    valor = valor.replace(/(\d{2})(\d)/, "$1/$2");
+    valor = valor.replace(/(\d{2})(\d)/, "$1/$2");
 
-        var len = elm.value.length;
-
-        if (len !== 1 || len !== 3) {
-            if (e.keyCode == 47) {
-                e.preventDefault();
-            }
-        }
-
-        if (len == 2 && e.keyCode != 8 && e.keyCode != 46) {
-            elm.value += '/'
-        }
-        if (len == 5 && e.keyCode != 8 && e.keyCode != 46) {
-            elm.value += '/'
-        }
-
-        checaValoresData(elm);
-        let dateValue = document.getElementById('formatoDateBanco')
-        dateValue.value = elm.value
-    })
+    data.value = valor;
+    validarData(data)
+    var formatoDateBanco = document.getElementById('formatoDateBanco');
+    formatoDateBanco.value = valor;
 }
 
-let checaValoresData = function (elem) {
-    const dia = elem.value.substring(0, 2)
-    const mes = elem.value.substring(3, 5)
+function validarData(data) {
+    const dia = data.value.substring(0, 2);
+    const mes = data.value.substring(3, 5);
+    let ano = data.value.substring(6, 10);
 
-    if (+dia > 31) {
-        elem.value = '12' + elem.value.substring(2)
-    } else if (dia == '00') {
-        elem.value = '01' + elem.value.substring(2);
+    if (dia > '31') {
+        data.value = '' + data.value.substring(2)
+        return;
+    }
+    if (mes > '12') {
+        data.value = dia + '/' + ''
+        return;
     }
 
-    if (+mes > 12) {
-        elem.value = elem.value.substring(0, 3) + '12' + elem.value.substring(5);
-    } else if (mes == '00') {
-        elem.value = elem.value.substring(0, 3) + '01' + elem.value.substring(5);
+    if (ano > '2999') {
+        data.value = dia + '/' + mes + '/' + '2999'
+        return;
     }
 }
 
+function formatarHora(hora) {
+    valor = hora.value
+    valor = valor.replace(/\D/g, "");
+    valor = valor.replace(/(\d{2})(\d)/, "$1:$2");
 
+    hora.value = valor;
+    validarHora(hora)
+    var formatoTimeBanco = document.getElementById('formatoTimeBanco');
+    formatoTimeBanco.value = valor;
 
-let hourInputMask = function hourInputMask(elm) {
-    elm.addEventListener('keyup', function (e) {
-        if (e.keyCode < 47 || e.keyCode > 57) {
-            e.preventDefault();
-        }
-
-        var len = elm.value.length;
-
-        if (len !== 1 || len !== 3) {
-            if (e.keyCode == 47) {
-                e.preventDefault();
-            }
-        }
-
-        if (len == 2 && e.keyCode != 8 && e.keyCode != 46) {
-            elm.value.replace(/[\D]+/g, '') += ':'
-        }
-
-        checaValoresHora(elm);
-        let timeValue = document.getElementById("formatoTimeBanco")
-        timeValue.value = elm.value;
-    })
 }
 
-var checaValoresHora = function (elem) {
-    const hora = elem.value.substring(0, 2);
-    const minuto = elem.value.substring(3, 4);
-
-    if (+hora > 23) {
-        elem.value = '23' + elem.value.substring(2);
+function validarHora(componente) {
+    const hora = componente.value.substring(0, 2);
+    const minuto = componente.value.substring(3, 5);
+    if (hora > '24') {
+        componente.value = '' + componente.value.substring(2)
+        return;
     }
-    if (+minuto > 59) {
-        elem.value = elem.value.substring(0, 3) + '59';
+    if (minuto > '59') {
+        componente.value = hora + ':' + ''
+        return;
     }
 }
 
-function validaHora(componente) {
-    const regexHora = /^(2[0-3]|[0-1]?[\d]):[0-5][\d]$/
-    const result = regexHora.test(componente.value)
-    if (!result && componente.value.length > 0) {
-        componente.value = ''
-        alert('favor verificar o horário informado')
-        componente.focus();
-    }
-}
-
-dateInputMask(inputDate);
-hourInputMask(inputTime)
 window.onload = function () {
     let inputs = document.getElementsByTagName('input')
     for (i = 0; i < inputs.length; i++) {
