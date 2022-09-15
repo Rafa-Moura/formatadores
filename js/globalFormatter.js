@@ -129,12 +129,19 @@ function colocaSimbolo(componente) {
 
 function checaPercentual(componente) {
     var valorReplace = componente.value.replace("%", "");
-    var valorDigitado = componente.value;
-    if (valorReplace.length >= 9) {
-        componente.value = '';
+    var antesSimbolo = componente.value.substring(0, 3);
+    var posSimbolo = componente.value.substring(4, 9);
+    var simbolo = componente.value.lastIndexOf(",")
+    if (valorReplace.length > 8) {
+        componente.value = antesSimbolo + posSimbolo + '%';
         componente.focus();
-        alert("Você inseriu um valor maior que 999.9999 (valor digitado " + valorDigitado + ") para o campo percentual. Apenas valores menores ou iguais a 999.9999")
+        // alert("Você inseriu um valor maior que 999.9999 (valor digitado " + valorDigitado + ") para o campo percentual. Apenas valores menores ou iguais a 999.9999")
         return;
+    }
+    console.log(componente.value.substring(0,simbolo))
+    if(componente.value.substring(0,simbolo).length >= 4){
+        componente.value = ''
+        alert("Ops, valor digitado de maneira incorreta. Tente novamente")
     }
 }
 
@@ -142,9 +149,9 @@ function checaPercentualInteiro(componente) {
     var valorReplace = componente.value.replace("%", "");
     var valorDigitado = componente.value;
     if (valorReplace.length >= 4) {
-        componente.value = '';
+        componente.value = valorReplace.substring(0, 3) + '%';
         componente.focus();
-        alert("Você inseriu um valor maior que 999 (valor digitado " + valorDigitado + ") para o campo percentual inteiro. Apenas valores menores ou iguais a 999")
+        // alert("Você inseriu um valor maior que 999 (valor digitado " + valorDigitado + ") para o campo percentual inteiro. Apenas valores menores ou iguais a 999")
         return;
     }
 }
