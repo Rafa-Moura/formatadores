@@ -67,7 +67,7 @@ th {
   color: #f7f7f7;
 }
 
-input {
+#button > input {
   border: 0;
   outline: none;
   padding: 4px 10px;
