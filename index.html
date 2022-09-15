@@ -5,139 +5,241 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./css/styles.css" />
-    <title>Teste Pagamento</title>
+    <title>Teste Formatações</title>
   </head>
   <body>
     <main>
-      <table class="main-table" cellspacing="0">
-        <thead>
-          <tr>
-            <th class="titulo">Parâmetro</th>
-            <th>Descrição</th>
-            <th>Formatação</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Parâmetro Monetário/Double</td>
-            <td>Valores do tipo R$ ou com ponto flutuante</td>
-            <td>
-              <input
-                type="text"
-                name="doubleValue"
-                onkeyup="formatarDouble(this, event)"
-                maxlength="14"
-                placeholder="Digitar apenas números"
-                title="Valores monetários"
-                onpaste="return false"
-              />
-            </td>
-          </tr>
-          <tr>
-            <td>Parâmetro Inteiro</td>
-            <td>Valores do tipo inteiro aceitando números negativos</td>
-            <td>
-              <input
-                type="text"
-                name="integerValue"
-                onkeyup="formatarInteiro(this)"
-                maxlength="4"
-                placeholder="Digitar apenas números"
-                title="Valores inteiros"
-                onpaste="return false"
-              />
-            </td>
-          </tr>
-          <tr>
-            <td>Parâmetro Percentual</td>
-            <td>Valores do tipo percentual com casa decimal</td>
-            <td>
-              <input
-                type="text"
-                name="doubleValue"
-                onkeyup="formatarPercentualDecimal(this, event)"
-                maxlength="8"
-                title="Valores Percentuais"
-                placeholder="Digitar apenas números"
-                onpaste="return false"
-              />
-            </td>
-          </tr>
-          <tr>
-            <td>Parâmetro Percentual Inteiro</td>
-            <td>Valores do tipo percentual inteiro</td>
-            <td>
-              <input
-                type="text"
-                name="percentualIntegerValue"
-                onkeyup="formatarPercentualInteiro(this)"
-                maxlength="3"
-                placeholder="Digitar apenas números"
-                title="Valores percentual inteiro"
-                onpaste="return false"
-              />
-            </td>
-          </tr>
-          <tr>
-            <td>Parâmetro String</td>
-            <td>Valores do tipo String, cadeias de caracteres</td>
-            <td>
-              <input
-                type="text"
-                name="percentualIntegerValue"
-                maxlength="30"
-                placeholder="Digitar texto"
-                title="Cadeia de caracteres"
-                onpaste="return false"
-              />
-            </td>
-          </tr>
-          <tr>
-            <td>Parâmetro Data</td>
-            <td>Valores do tipo Data, padrão DD/MM/YYYY</td>
-            <td>
-              <input
-                type="date"
-                name="dateValue"
-                onkeyup="formatarData(this, event)"
-                onchange="mostrar(this)"
-                maxlength="10"
-                title="Tipo Data DD/MM/YYYY"
-                onpaste="return false"
-              />
-            </td>
-          </tr>
-          <tr>
-            <td>Parâmetro Hora</td>
-            <td>Valores do tipo hora, padrão HH:MM:SS</td>
-            <td>
-              <input
-                type="time"
-                name="hourValue"
-                onchange="mostrarHora(this)"
-                maxlength="10"
-                title="Tipo hora HH:MM"
-                onpaste="return false"
-              />
-            </td>
-          </tr>
-          <tr>
-            <td>Parâmetro Charset</td>
-            <td>Valores do tipo Charset, aceitam um único caractere</td>
-            <td>
-              <input
-                type="text"
-                name="hourValue"
-                maxlength="1"
-                title="Tipo caractere único"
-                placeholder="Digitar qualquer caractere"
-                onpaste="return false"
-              />
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <form action="">
+        <table class="main-table" cellspacing="0">
+          <thead>
+            <tr>
+              <th class="titulo">Parâmetro</th>
+              <th>Descrição</th>
+              <th>Formatação</th>
+              <th>Formato Banco</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="linhas-tabela">
+              <td>Parâmetro Monetário/Double</td>
+              <td>Valores do tipo R$ ou com ponto flutuante</td>
+              <td>
+                <input
+                  type="text"
+                  name="doubleValue"
+                  id="teste"
+                  class="TIPO_DB"
+                  onkeyup="formatarDouble(this, event)"
+                  maxlength="14"
+                  placeholder="Digitar apenas números"
+                  title="Valores monetários"
+                  onpaste="return false"
+                />
+              </td>
+              <td>
+                <input
+                  type="text"
+                  name="doubleValueBanco"
+                  readonly
+                  disabled
+                  id="formatoDoubleBanco"
+                />
+              </td>
+            </tr>
+            <tr class="linhas-tabela">
+              <td>Parâmetro Inteiro</td>
+              <td>Valores do tipo inteiro aceitando números negativos</td>
+              <td>
+                <input
+                  type="text"
+                  name="integerValue"
+                  onkeyup="formatarInteiro(this)"
+                  class="TIPO_IN"
+                  onblur="limpaCampoInteiro(this)"
+                  maxlength="15"
+                  placeholder="Digitar apenas números"
+                  title="Valores inteiros"
+                  onpaste="return false"
+                />
+              </td>
+              <td>
+                <input
+                  type="text"
+                  name="integerValueBanco"
+                  readonly
+                  disabled
+                  id="formatoIntegerBanco"
+                />
+              </td>
+            </tr>
+            <tr class="linhas-tabela">
+              <td>Parâmetro Percentual</td>
+              <td>Valores do tipo percentual com casa decimal</td>
+              <td>
+                <input
+                  type="text"
+                  name="doublePercentValue"
+                  onkeyup="formatarPercentualDecimal(this, event)"
+                  class="TIPO_PC"
+                  onblur="checaPercentual(this)"
+                  maxlength="9"
+                  title="Valores Percentuais"
+                  placeholder="Digitar apenas números"
+                  onpaste="return false"
+                />
+              </td>
+              <td>
+                <input
+                  type="text"
+                  name="doublePercentValueBanco"
+                  readonly
+                  disabled
+                  id="formatoDoublePercentBanco"
+                />
+              </td>
+            </tr>
+            <tr class="linhas-tabela">
+              <td>Parâmetro Percentual Inteiro</td>
+              <td>Valores do tipo percentual inteiro</td>
+              <td>
+                <input
+                  type="text"
+                  name="percentualIntegerValue"
+                  onkeyup="formatarPercentualInteiro(this, event)"
+                  class="TIPO_PI"
+                  maxlength="4"
+                  placeholder="Digitar apenas números"
+                  title="Valores percentual inteiro"
+                  onpaste="return false"
+                />
+              </td>
+              <td>
+                <input
+                  type="text"
+                  name="percentualIntegerValueBanco"
+                  readonly
+                  disabled
+                  id="formatoPercentualIntegerBanco"
+                />
+              </td>
+            </tr>
+            <tr class="linhas-tabela">
+              <td>Parâmetro String</td>
+              <td>Valores do tipo String, cadeias de caracteres</td>
+              <td>
+                <input
+                  type="text"
+                  name="stringValue"
+                  maxlength="30"
+                  onblur="removeEspacos(this)"
+                  class="TIPO_ST"
+                  onkeyup="validaString(this)"
+                  placeholder="Digitar texto"
+                  title="Cadeia de caracteres"
+                  onpaste="return false"
+                />
+              </td>
+              <td>
+                <input
+                  type="text"
+                  name="stringValueBanco"
+                  readonly
+                  disabled
+                  id="formatoStringBanco"
+                />
+              </td>
+            </tr>
+            <tr class="linhas-tabela">
+              <td>Parâmetro Data</td>
+              <td>Valores do tipo Data, padrão DD/MM/YYYY</td>
+              <td>
+                <input
+                  type="text"
+                  name="dateValue"
+                  id="js-date"
+                  maxlength="10"
+                  onkeyup="formatarData(this)"
+                  class="TIPO_DT"
+                  onblur="checaData(this)"
+                  title="Tipo Data DD/MM/YYYY"
+                  onpaste="return false"
+                />
+              </td>
+              <td>
+                <input
+                  type="text"
+                  name="dateValueBanco"
+                  readonly
+                  disabled
+                  id="formatoDateBanco"
+                />
+              </td>
+            </tr>
+            <tr class="linhas-tabela">
+              <td>Parâmetro Hora</td>
+              <td>Valores do tipo hora, padrão HH:MM:SS</td>
+              <td>
+                <input
+                  type="text"
+                  name="timeValue"
+                  maxlength="8"
+                  onkeyup="formatarHora(this)"
+                  class="TIPO_HR"
+                  onblur="checaHora(this)"
+                  id="js-time"
+                  title="Tipo hora HH:MM"
+                  onpaste="return false"
+                />
+              </td>
+              <td>
+                <input
+                  type="text"
+                  name="timeValueBanco"
+                  readonly
+                  disabled
+                  id="formatoTimeBanco"
+                />
+              </td>
+            </tr>
+            <tr class="linhas-tabela">
+              <td>Parâmetro Charset</td>
+              <td>Valores do tipo Charset, aceitam um único caractere</td>
+              <td>
+                <input
+                  type="text"
+                  name="charValue"
+                  maxlength="1"
+                  title="Tipo caractere único"
+                  onblur="removeEspacos(this)"
+                  class="TIPO_CS"
+                  onkeyup="validaChar(this)"
+                  placeholder="Digitar qualquer caractere"
+                  onpaste="return false"
+                />
+              </td>
+              <td>
+                <input
+                  type="text"
+                  name="charValueBanco"
+                  readonly
+                  disabled
+                  id="formatoCharBanco"
+                />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div id="button">
+          <input
+            type="submit"
+            value="Enviar"
+            id="btn-submit"
+            onclick="enviar(event)"
+          />
+        </div>
+      </form>
     </main>
     <script src="./js/globalFormatter.js"></script>
+    <script src="./js/valida.js"></script>
   </body>
 </html>
