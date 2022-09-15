@@ -21,7 +21,6 @@ function formatarDouble(componente, event) {
 
     value = denifinirMilhares(value);
     componente.value = value == "0NaN" || value == "NaN" ? "" : value;
-
     let double = document.getElementById('formatoDoubleBanco');
     double.value = converteNumero(componente.value)
 }
@@ -83,7 +82,7 @@ function limpaCampoInteiro(componente) {
     componente.value = value
 }
 
-function formatarPercentualInteiro(componente) {
+function formatarPercentualInteiro(componente, event) {
     value = componente.value;
 
     value = value + ''
@@ -101,9 +100,53 @@ function formatarPercentualInteiro(componente) {
         value = value.replace("%", '')
     }
 
+    if (value.length == 3 && event.keyCode != 37) {
+        value = value + '';
+    }
     componente.value = value == "0NaN" || value == "NaN" || value == "NaN%" ? "" : value;
+    checaPercentualInteiro(componente)
     let integerPercent = document.getElementById('formatoPercentualIntegerBanco')
     integerPercent.value = converteNumero(componente.value)
+}
+
+function colocaSimbolo(componente) {
+    value = componente.value;
+    var simbolo = value.lastIndexOf("%");
+    if (value[simbolo] !== "%") {
+        value = value + "%"
+    }
+
+    var checaValor = value.replace("%", '')
+
+    if (checaValor > 999) {
+        alert("Valor de percentual inteiro não pode ser maior que 999")
+        value = '';
+        componente.focus()
+    }
+
+    componente.value = value;
+}
+
+function checaPercentual(componente) {
+    var valorReplace = componente.value.replace("%", "");
+    var valorDigitado = componente.value;
+    if (valorReplace.length >= 9) {
+        componente.value = '';
+        componente.focus();
+        alert("Você inseriu um valor maior que 999.9999 (valor digitado " + valorDigitado + ") para o campo percentual. Apenas valores menores ou iguais a 999.9999")
+        return;
+    }
+}
+
+function checaPercentualInteiro(componente) {
+    var valorReplace = componente.value.replace("%", "");
+    var valorDigitado = componente.value;
+    if (valorReplace.length >= 4) {
+        componente.value = '';
+        componente.focus();
+        alert("Você inseriu um valor maior que 999 (valor digitado " + valorDigitado + ") para o campo percentual inteiro. Apenas valores menores ou iguais a 999")
+        return;
+    }
 }
 
 function formatarPercentualDecimal(componente, event) {
@@ -113,6 +156,8 @@ function formatarPercentualDecimal(componente, event) {
     value = parseInt(value.replace(/[\D]+/g, ''))
     value = value + ''
     value = value.replace(/([0-9]{4})$/g, ',$1')
+
+
 
     if (value.length == 1) {
         value = "0,000" + value
@@ -144,6 +189,7 @@ function formatarPercentualDecimal(componente, event) {
     }
 
     componente.value = value == "0,0NaN" || value == "0,0NaN%" || value == "NaN" ? "" : value;
+    checaPercentual(componente)
     let doublePercent = document.getElementById('formatoDoublePercentBanco')
     doublePercent.value = converteNumero(componente.value)
 }
@@ -211,6 +257,7 @@ function formatarHora(hora) {
     valor = hora.value
     valor = valor.replace(/\D/g, "");
     valor = valor.replace(/(\d{2})(\d)/, "$1:$2");
+    valor = valor.replace(/(\d{2})(\d)/, "$1:$2");
 
     hora.value = valor;
     validarHora(hora)
@@ -222,6 +269,7 @@ function formatarHora(hora) {
 function validarHora(componente) {
     const hora = componente.value.substring(0, 2);
     const minuto = componente.value.substring(3, 5);
+    const segundo = componente.value.substring(6, 7);
     if (hora > '24') {
         componente.value = '' + componente.value.substring(2)
         return;
@@ -229,6 +277,32 @@ function validarHora(componente) {
     if (minuto > '59') {
         componente.value = hora + ':' + ''
         return;
+    }
+    if (segundo > '59') {
+        componente.value = hora + ':' + minuto + ''
+        return;
+    }
+}
+
+function checaData(componente) {
+    var pattern = (/\d{2}\/\d{2}\/\d{4}/)
+    var teste = pattern.test(componente.value)
+    if (!teste && componente.value != '') {
+        alert("Campo de data inválido")
+        componente.value = ''
+        componente.focus()
+    }
+}
+
+function checaHora(componente) {
+    var pattern = (/(\d{2}\:\d{2}\:\d{2})|(\d{2}\:\d{2})/g)
+    var teste = pattern.test(componente.value)
+    var validaHora = componente.value.length > 5 && componente.value.length < 8
+    console.log(teste)
+    if (!teste && componente.value != '' || validaHora) {
+        componente.value = ''
+        componente.focus()
+        alert("Campo de hora inválido")
     }
 }
 
