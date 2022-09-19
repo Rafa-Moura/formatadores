@@ -1,9 +1,13 @@
 function enviar(event) {
-  if (!validaDoubleSubmit()) {
+  let valida = true;
+
+  if (!validaDadosBackEnd()) {
     event.preventDefault();
-    return false;
-  } else {
-    alert("ok");
+    valida = false;
+  }
+
+  if (valida) {
+    alert("Ok");
   }
 }
 
@@ -70,6 +74,7 @@ function onblurTipoCharString(componente) {
 }
 
 //FUNÇÕES PARA VALIDAR OS CAMPOS ANTES DE ENVIAR AO BACKEND
+
 function validaDoubleSubmit() {
   let inputDouble = document.getElementsByClassName("TIPO_DB");
   const REGEX_DOUBLE = /([a-zA-Z])|([^0-9\,\.])+/g;
@@ -81,13 +86,89 @@ function validaDoubleSubmit() {
       return false;
     }
     if (
-      REGEX_DOUBLE.test(element.value) ||
-      !REGEX_MASCARA_DOUBLE.test(element.value)
+      REGEX_DOUBLE.test(inputDouble[i].value) ||
+      !REGEX_MASCARA_DOUBLE.test(inputDouble[i].value)
     ) {
       alert("Valor incorreto para o tipo double!");
-      element.focus();
+      inputDouble[i].focus();
       return false;
     }
   }
+  return true;
+}
+
+function validaInteiroSubmit() {
+  let inputInteiro = document.getElementsByClassName("TIPO_IN");
+  for (i = 0; i < inputInteiro.length; i++) {
+    let valorReplace = inputInteiro[i].value.replace("-", "");
+    if (valorReplace.charCodeAt(i) < 48 || valorReplace.charCodeAt(i) > 57) {
+      alert("Valor incorreto no tipo inteiro");
+      inputInteiro[i].focus();
+      return false;
+    }
+    if (inputInteiro[i].value == "") {
+      alert("Preencher todos os valores");
+      inputInteiro[i].focus();
+      return false;
+    }
+  }
+  return true;
+}
+
+function validaDataSubmit() {
+  let inputData = document.getElementsByClassName("TIPO_DT");
+  const REGEX_DATA = /\d{2}\/\d{2}\/\d{4}/;
+  for (let i = 0; i < inputData.length; i++) {
+    var teste = REGEX_DATA.test(inputData[i].value);
+    if (!teste && inputData[i].value != "") {
+      alert("Campo de data inválido");
+      inputData[i].value = "";
+      inputData[i].focus();
+      return false;
+    }
+    if (inputData[i].value == "") {
+      inputData[i].focus();
+      return false;
+    }
+  }
+  return true;
+}
+
+function validaHoraSubmit() {
+  let inputHora = document.getElementsByClassName("TIPO_HR");
+  const REGEX_HORA = /(\d{2}\:\d{2}\:\d{2})|(\d{2}\:\d{2})/g;
+  for (let i = 0; i < inputHora.length; i++) {
+    let teste = REGEX_HORA.test(inputHora[i].value);
+    let validaHora =
+      inputHora[i].value.length > 5 && inputHora[i].value.length < 8;
+    if ((!teste && inputHora[i].value != "") || validaHora) {
+      inputHora[i].value = "";
+      inputHora[i].focus();
+      alert("Campo de hora inválido");
+      return false;
+    }
+    if (inputHora[i].value == "") {
+      inputHora[i].focus();
+      alert("Favor preencher todos os campos");
+      return false;
+    }
+  }
+  return true;
+}
+
+function validaDadosBackEnd() {
+
+  if (!validaInteiroSubmit()) {
+    return false;
+  }
+
+  if (!validaDataSubmit()) {
+    return false;
+  }
+
+  if (!validaHoraSubmit()) {
+    return false;
+  }
+
   return true;
 }
