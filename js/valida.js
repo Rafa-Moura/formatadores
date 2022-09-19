@@ -1,3 +1,5 @@
+//FUNÇÃO QUE FAZ O ENVIO DOS DADOS AO BACKEND SE TUDO ESTIVER CORRETO
+
 function enviar(event) {
   let valida = true;
 
