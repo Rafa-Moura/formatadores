@@ -30,6 +30,7 @@ function onblurTipoInteiro(componente) {
   for (i = 0; i < value.length; i++) {
     if (valueReplace.charCodeAt(i) < 48 || valueReplace.charCodeAt(i) > 57) {
       value = "";
+      alert("Valor incorreto para o tipo inteiro");
     }
   }
   componente.value = value;
@@ -157,7 +158,6 @@ function validaHoraSubmit() {
 }
 
 function validaDadosBackEnd() {
-
   if (!validaInteiroSubmit()) {
     return false;
   }
@@ -172,3 +172,15 @@ function validaDadosBackEnd() {
 
   return true;
 }
+
+// AÇÕES EXECUTADAS AO CARREGAR COMPLETAMENTE A PÁGINA
+
+window.onload = function () {
+  let inputs = document.getElementsByTagName("input");
+  for (i = 0; i < inputs.length; i++) {
+    inputs[i].autocomplete = "off";
+    if (inputs[i].disabled) {
+      inputs[i].style.color = "#FFF";
+    }
+  }
+};

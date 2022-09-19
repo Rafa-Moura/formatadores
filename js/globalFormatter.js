@@ -274,13 +274,3 @@ function validarHora(componente) {
     return;
   }
 }
-
-window.onload = function () {
-  let inputs = document.getElementsByTagName("input");
-  for (i = 0; i < inputs.length; i++) {
-    inputs[i].autocomplete = "off";
-    if (inputs[i].disabled) {
-      inputs[i].style.color = "#FFF";
-    }
-  }
-};
