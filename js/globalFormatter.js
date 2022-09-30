@@ -51,11 +51,11 @@ function formatarInteiro(componente) {
     alert("0 não pode ser número negativo");
     value = "";
   }
-
-  if (value[0] == "0" && value[1] == "0") {
-    value = "0";
-  } else if (value[0] == "0" && value[1] > "0") {
-    value = value.replace("0", "");
+  
+  if (value[0] == "0" && value[1] >= "0") {
+    value = "";
+    alert("Valor incorreto para o tipo inteiro");
+    componente.focus();
   }
 
   if (value.length == 1) {
@@ -67,16 +67,7 @@ function formatarInteiro(componente) {
     value = value.replace(/\B[^0-9]{1,}\B/g, ""); // non-word-boundary para selecionar posições dentro de uma palavra. (caso o usuário mova o cursor e tente inserir alguma letra entre os números)
     value = value.replace(/\b[^0-9]{1,}\b/g, ""); //word boundary para selecionar a posição antes ou depois de uma palavra. (caso o usuário mova o cursor e tente inserir algum caractere entre os números)
   }
-  let integer = document.getElementById("formatoIntegerBanco");
-  integer.value = componente.value;
-  componente.value = value;
-}
 
-function limpaCampoInteiro(componente) {
-  value = componente.value;
-  if (value.length == 1 && value == "-") {
-    value = "";
-  }
   componente.value = value;
 }
 
@@ -88,21 +79,13 @@ function formatarPercentualInteiro(componente, event) {
   value = value + "";
   value = value.replace(/([0-9])$/g, "$1");
 
-  if (value.length >= 1 && value.length < 5) {
-    value = value + "%";
-  }
-
   var simbolo = value.length - 1;
   if (simbolo == "%" || event.keyCode == 8) {
     value = value.replace("%", "");
   }
 
-  if (value.length == 3 && event.keyCode != 37) {
-    value = value + "";
-  }
   componente.value =
     value == "0NaN" || value == "NaN" || value == "NaN%" ? "" : value;
-  checaPercentualInteiro(componente);
   let integerPercent = document.getElementById("formatoPercentualIntegerBanco");
   integerPercent.value = converteNumero(componente.value);
 }
@@ -123,33 +106,6 @@ function colocaSimbolo(componente) {
   }
 
   componente.value = value;
-}
-
-function checaPercentual(componente) {
-  var valorReplace = componente.value.replace("%", "");
-  var antesSimbolo = componente.value.substring(0, 3);
-  var posSimbolo = componente.value.substring(4, 9);
-  var simbolo = componente.value.lastIndexOf(",");
-  if (valorReplace.length > 8) {
-    componente.value = antesSimbolo + posSimbolo + "%";
-    componente.focus();
-    return;
-  }
-  if (componente.value.substring(0, simbolo).length >= 4) {
-    componente.value = "";
-    alert("Ops, valor digitado de maneira incorreta. Tente novamente");
-  }
-}
-
-function checaPercentualInteiro(componente) {
-  var valorReplace = componente.value.replace("%", "");
-  var valorDigitado = componente.value;
-  if (valorReplace.length >= 4) {
-    componente.value = valorReplace.substring(0, 3) + "%";
-    componente.focus();
-    // alert("Você inseriu um valor maior que 999 (valor digitado " + valorDigitado + ") para o campo percentual inteiro. Apenas valores menores ou iguais a 999")
-    return;
-  }
 }
 
 function formatarPercentualDecimal(componente, event) {
@@ -175,23 +131,12 @@ function formatarPercentualDecimal(componente, event) {
   if (value.length > 4 && value.length <= 5) {
     value = "0" + value;
   }
-
-  if (value.length >= 6 && value.length <= 8) {
-    value = value + "%";
-  }
-
-  var simbolo = value.length - 1;
-  if (simbolo == "%" || event.keyCode == 8) {
-    value = value.replace("%", "");
-  }
-
   if (value == "0,0000" && event.keyCode == 8) {
     value = "";
   }
 
   componente.value =
     value == "0,0NaN" || value == "0,0NaN%" || value == "NaN" ? "" : value;
-  checaPercentual(componente);
   let doublePercent = document.getElementById("formatoDoublePercentBanco");
   doublePercent.value = converteNumero(componente.value);
 }
